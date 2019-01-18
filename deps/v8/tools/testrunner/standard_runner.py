@@ -49,7 +49,8 @@ VARIANT_ALIASES = {
 GC_STRESS_FLAGS = ["--gc-interval=500", "--stress-compaction",
                    "--concurrent-recompilation-queue-length=64",
                    "--concurrent-recompilation-delay=500",
-                   "--concurrent-recompilation"]
+                   "--concurrent-recompilation",
+                   "--stress-flush-bytecode"]
 
 RANDOM_GC_STRESS_FLAGS = ["--random-gc-interval=5000",
                           "--stress-compaction-random"]
@@ -310,7 +311,6 @@ class StandardTestRunner(base_runner.BaseTestRunner):
       ]
 
       self._prepare_procs(procs)
-      tests.sort(key=lambda t: t.is_slow, reverse=True)
 
       loader.load_tests(tests)
 

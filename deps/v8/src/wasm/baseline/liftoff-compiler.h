@@ -9,26 +9,27 @@
 
 namespace v8 {
 namespace internal {
+
+class Counters;
+
 namespace wasm {
 
-struct WasmFeatures;
-class ErrorThrower;
-class WasmCode;
+struct CompilationEnv;
+struct FunctionBody;
+class NativeModule;
 class WasmCompilationUnit;
+struct WasmFeatures;
 
 class LiftoffCompilationUnit final {
  public:
   explicit LiftoffCompilationUnit(WasmCompilationUnit* wasm_unit)
       : wasm_unit_(wasm_unit) {}
 
-  bool ExecuteCompilation(WasmFeatures* detected);
-  WasmCode* FinishCompilation(ErrorThrower*);
+  bool ExecuteCompilation(CompilationEnv*, NativeModule*, const FunctionBody&,
+                          Counters*, WasmFeatures* detected);
 
  private:
   WasmCompilationUnit* const wasm_unit_;
-
-  // Result of compilation:
-  WasmCode* code_;
 
   DISALLOW_COPY_AND_ASSIGN(LiftoffCompilationUnit);
 };
